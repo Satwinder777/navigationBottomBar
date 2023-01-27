@@ -1,10 +1,13 @@
 package com.pbs.testnavgraph
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +20,21 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MusicFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    var mContext:Context ?= null
+    private lateinit var adapter: MusicAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var musicArrayList: ArrayList<MusicData>
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mContext = context
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -37,16 +45,21 @@ class MusicFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_music, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showData()
+
+        val LayoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LayoutManager
+        recyclerView.setHasFixedSize(true)
+//        adapter = MusicAdapter(musicArrayList,mContext)
+        adapter = MusicAdapter(musicArrayList)
+        recyclerView.adapter = adapter
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MusicFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MusicFragment().apply {
@@ -55,5 +68,70 @@ class MusicFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+
+    }
+
+
+    //code Start From Here
+
+    private fun showData(){
+        musicArrayList = arrayListOf()
+
+        val img = arrayOf(
+            R.drawable.fea,
+            R.drawable.moosetape,
+            R.drawable.level,
+            R.drawable.fea,
+            R.drawable.moosetape,
+            R.drawable.level,
+            R.drawable.fea,
+            R.drawable.moosetape,
+            R.drawable.level,
+            R.drawable.fea,
+            R.drawable.moosetape,
+            R.drawable.level,
+
+
+        )
+
+        val song = arrayOf(
+            R.raw.levels,
+            R.raw.two,
+            R.raw.fuck_em_all,
+            R.raw.levels,
+            R.raw.two,
+            R.raw.fuck_em_all,
+            R.raw.levels,
+            R.raw.two,
+            R.raw.fuck_em_all,
+            R.raw.levels,
+            R.raw.two,
+            R.raw.fuck_em_all,
+
+
+
+        )
+
+        val artistName = arrayOf(
+            "Sidhu Moose Wala",
+            "Satwinder",
+            "Naresh",
+            "Sidhu Moose Wala",
+            "Param",
+            "Sidhu Moose Wala",
+            "Satwinder",
+            "Sidhu Moose Wala",
+            "Naresh",
+            "Sidhu Moose Wala",
+            "Sidhu Moose Wala",
+            "Naresh",
+
+        )
+
+        for (i in img.indices){
+            val musicData = MusicData(song[i], artistName[i],img[i])
+            musicArrayList.add(musicData)
+        }
     }
 }

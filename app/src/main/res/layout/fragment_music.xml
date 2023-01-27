@@ -6,11 +6,11 @@
     tools:context=".MusicFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="MUSIC FRAGMENT"
-        android:background ="#6598"/>
+        tools:listitem="@layout/recycler_view_item" />
 
 </FrameLayout>
