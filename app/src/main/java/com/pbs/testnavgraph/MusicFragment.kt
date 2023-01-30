@@ -21,6 +21,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class MusicFragment : Fragment() {
 
+
     var mContext:Context ?= null
     private lateinit var adapter: MusicAdapter
     private lateinit var recyclerView: RecyclerView
@@ -54,7 +55,7 @@ class MusicFragment : Fragment() {
         recyclerView.layoutManager = LayoutManager
         recyclerView.setHasFixedSize(true)
 //        adapter = MusicAdapter(musicArrayList,mContext)
-        adapter = MusicAdapter(musicArrayList)
+        adapter = MusicAdapter(musicArrayList,mContext)
         recyclerView.adapter = adapter
     }
 
